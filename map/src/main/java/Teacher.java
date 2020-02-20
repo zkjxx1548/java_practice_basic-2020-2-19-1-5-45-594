@@ -1,9 +1,11 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Teacher {
     private String name;
-    private Map<Student, Integer> students;
+    private Map<Integer, List<Student>> students = new HashMap<>();
 
     public Teacher() {
     }
@@ -21,7 +23,7 @@ public class Teacher {
         this.name = name;
     }
 
-    public Map getStudents() {
+    public Map<Integer, List<Student>> getStudents() {
         return students;
     }
 
@@ -30,6 +32,12 @@ public class Teacher {
     }
 
     public void addStudent(Student student) {
-        students.put(student, student.getAge());
+        int age = student.getAge();
+        List<Student> list = new ArrayList<>();
+        if (students.containsKey(age)) {
+            list = students.get(student.getAge());
+    }
+        list.add(student);
+        students.put(age, list);
     }
 }
